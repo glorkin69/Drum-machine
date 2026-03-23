@@ -1,0 +1,640 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Vintage drum machine colors */
+  --color-vintage-cream: #F5E6D3;
+  --color-vintage-tan: #D4A574;
+  --color-vintage-brown: #8B4513;
+  --color-vintage-dark: #2C1810;
+  --color-vintage-orange: #E8732A;
+  --color-vintage-red: #C0392B;
+  --color-vintage-green: #27AE60;
+  --color-vintage-amber: #F39C12;
+  --color-vintage-metal: #95A5A6;
+  --color-vintage-charcoal: #1A1A1A;
+}
+
+:root {
+  --background: #1A1410;
+  --foreground: #F5E6D3;
+  --card: #2C1E14;
+  --card-foreground: #F5E6D3;
+  --popover: #2C1E14;
+  --popover-foreground: #F5E6D3;
+  --primary: #D4A574;
+  --primary-foreground: #1A1410;
+  --secondary: #3D2B1F;
+  --secondary-foreground: #D4A574;
+  --muted: #3D2B1F;
+  --muted-foreground: #A08060;
+  --accent: #E8732A;
+  --accent-foreground: #FFFFFF;
+  --destructive: #C0392B;
+  --border: #4A3728;
+  --input: #3D2B1F;
+  --ring: #D4A574;
+  --chart-1: #E8732A;
+  --chart-2: #D4A574;
+  --chart-3: #27AE60;
+  --chart-4: #F39C12;
+  --chart-5: #C0392B;
+  --radius: 0.5rem;
+  --sidebar: #2C1E14;
+  --sidebar-foreground: #F5E6D3;
+  --sidebar-primary: #D4A574;
+  --sidebar-primary-foreground: #1A1410;
+  --sidebar-accent: #3D2B1F;
+  --sidebar-accent-foreground: #D4A574;
+  --sidebar-border: #4A3728;
+  --sidebar-ring: #D4A574;
+}
+
+.dark {
+  --background: #1A1410;
+  --foreground: #F5E6D3;
+  --card: #2C1E14;
+  --card-foreground: #F5E6D3;
+  --popover: #2C1E14;
+  --popover-foreground: #F5E6D3;
+  --primary: #D4A574;
+  --primary-foreground: #1A1410;
+  --secondary: #3D2B1F;
+  --secondary-foreground: #D4A574;
+  --muted: #3D2B1F;
+  --muted-foreground: #A08060;
+  --accent: #E8732A;
+  --accent-foreground: #FFFFFF;
+  --destructive: #C0392B;
+  --border: #4A3728;
+  --input: #3D2B1F;
+  --ring: #D4A574;
+  --chart-1: #E8732A;
+  --chart-2: #D4A574;
+  --chart-3: #27AE60;
+  --chart-4: #F39C12;
+  --chart-5: #C0392B;
+  --sidebar: #2C1E14;
+  --sidebar-foreground: #F5E6D3;
+  --sidebar-primary: #D4A574;
+  --sidebar-primary-foreground: #1A1410;
+  --sidebar-accent: #3D2B1F;
+  --sidebar-accent-foreground: #D4A574;
+  --sidebar-border: #4A3728;
+  --sidebar-ring: #D4A574;
+}
+
+/* ============================================
+   DARK NEON 80s THEME
+   Synthwave aesthetic: deep darks + electric neons
+   ============================================ */
+.theme-dark-neon,
+.theme-dark-neon .dark {
+  --background: #050510;
+  --foreground: #F0EFFF;
+  --card: #0F0F25;
+  --card-foreground: #F0EFFF;
+  --popover: #0F0F25;
+  --popover-foreground: #F0EFFF;
+  --primary: #00FFFF;
+  --primary-foreground: #050510;
+  --secondary: #161630;
+  --secondary-foreground: #00FFFF;
+  --muted: #161630;
+  --muted-foreground: #6B7BA0;
+  --accent: #FF0099;
+  --accent-foreground: #FFFFFF;
+  --destructive: #FF1166;
+  --border: #1F1F45;
+  --input: #161630;
+  --ring: #00FFFF;
+  --chart-1: #FF0099;
+  --chart-2: #00FFFF;
+  --chart-3: #00FF99;
+  --chart-4: #FFFF00;
+  --chart-5: #FF1166;
+  --sidebar: #0F0F25;
+  --sidebar-foreground: #F0EFFF;
+  --sidebar-primary: #00FFFF;
+  --sidebar-primary-foreground: #050510;
+  --sidebar-accent: #161630;
+  --sidebar-accent-foreground: #00FFFF;
+  --sidebar-border: #1F1F45;
+  --sidebar-ring: #00FFFF;
+
+  /* Theme-specific custom properties */
+  --theme-panel-bg-start: #0F0F25;
+  --theme-panel-bg-end: #050510;
+  --theme-panel-border: #1F1F45;
+  --theme-panel-inset: rgba(0, 255, 255, 0.08);
+  --theme-panel-shadow: rgba(0, 0, 0, 0.8);
+  --theme-button-bg-start: #161630;
+  --theme-button-bg-end: #0F0F25;
+  --theme-button-border: #1F1F45;
+  --theme-button-inset: rgba(0, 255, 255, 0.12);
+  --theme-knob-highlight: #333;
+  --theme-knob-shadow: #0A0A10;
+  --theme-knob-border: #1F1F45;
+  --theme-led-off: #161630;
+  --theme-led-active: #FF0099;
+  --theme-led-active-glow: rgba(255, 0, 153, 0.8);
+  --theme-led-green: #00FF99;
+  --theme-led-green-glow: rgba(0, 255, 153, 0.8);
+  --theme-pad-active: #FF0099;
+  --theme-pad-active-glow: rgba(255, 0, 153, 0.8);
+  --theme-step-highlight: rgba(0, 255, 255, 0.6);
+  --theme-step-highlight-border: #00FFFF;
+  --theme-beat-marker: rgba(0, 255, 255, 0.15);
+  --theme-label-color: #6B7BA0;
+  --theme-display-bg: #040410;
+  --theme-display-border: #1F1F45;
+  --theme-display-text: #00FFFF;
+  --theme-scrollbar-track: #050510;
+  --theme-scrollbar-thumb: #1F1F45;
+  --theme-scrollbar-hover: #00FFFF;
+  --theme-song-drag-border: #FF0099;
+  --theme-xy-pad-bg: #040410;
+  --theme-xy-pad-border: #1F1F45;
+  --theme-xy-pad-active-border: #2F2F55;
+  --theme-xy-pad-glow: rgba(255, 0, 153, 0.25);
+  --theme-body-bg: #050510;
+  --theme-text-primary: #F0EFFF;
+  --theme-text-muted: #6B7BA0;
+  --theme-text-accent: #00FFFF;
+  --theme-glow-primary: 0 0 20px rgba(0, 255, 255, 0.5);
+  --theme-glow-accent: 0 0 20px rgba(255, 0, 153, 0.5);
+  --theme-selector-active-bg: rgba(0, 255, 255, 0.2);
+  --theme-selector-active-border: rgba(0, 255, 255, 0.6);
+  --theme-selector-active-text: #00FFFF;
+  --theme-selector-inactive-bg: transparent;
+  --theme-selector-inactive-text: #6B7BA0;
+  --theme-selector-inactive-hover-bg: rgba(0, 255, 255, 0.08);
+}
+
+/* ============================================
+   LIGHT NEON 80s THEME
+   Bright backgrounds + vibrant, saturated neons
+   ============================================ */
+.theme-light-neon {
+  --background: #E8DEFF;
+  --foreground: #1A0A3A;
+  --card: #FFFFFF;
+  --card-foreground: #1A0A3A;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A0A3A;
+  --primary: #6600FF;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F0E8FF;
+  --secondary-foreground: #6600FF;
+  --muted: #F0E8FF;
+  --muted-foreground: #7050BB;
+  --accent: #FF0099;
+  --accent-foreground: #FFFFFF;
+  --destructive: #FF0055;
+  --border: #B8A8E0;
+  --input: #F0E8FF;
+  --ring: #6600FF;
+  --chart-1: #FF0099;
+  --chart-2: #6600FF;
+  --chart-3: #00FF99;
+  --chart-4: #FFDD00;
+  --chart-5: #FF0055;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1A0A3A;
+  --sidebar-primary: #6600FF;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F0E8FF;
+  --sidebar-accent-foreground: #6600FF;
+  --sidebar-border: #B8A8E0;
+  --sidebar-ring: #6600FF;
+
+  /* Theme-specific custom properties */
+  --theme-panel-bg-start: #FFFFFF;
+  --theme-panel-bg-end: #F7F0FF;
+  --theme-panel-border: #B8A8E0;
+  --theme-panel-inset: rgba(102, 0, 255, 0.08);
+  --theme-panel-shadow: rgba(102, 0, 255, 0.12);
+  --theme-button-bg-start: #F0E8FF;
+  --theme-button-bg-end: #E8DEFF;
+  --theme-button-border: #B8A8E0;
+  --theme-button-inset: rgba(102, 0, 255, 0.1);
+  --theme-knob-highlight: #FFFFFF;
+  --theme-knob-shadow: #9080C0;
+  --theme-knob-border: #B8A8E0;
+  --theme-led-off: #C8B8E0;
+  --theme-led-active: #FF0099;
+  --theme-led-active-glow: rgba(255, 0, 153, 0.7);
+  --theme-led-green: #00FF99;
+  --theme-led-green-glow: rgba(0, 255, 153, 0.7);
+  --theme-pad-active: #FF0099;
+  --theme-pad-active-glow: rgba(255, 0, 153, 0.7);
+  --theme-step-highlight: rgba(102, 0, 255, 0.5);
+  --theme-step-highlight-border: #6600FF;
+  --theme-beat-marker: rgba(102, 0, 255, 0.12);
+  --theme-label-color: #7050BB;
+  --theme-display-bg: #1A0A3A;
+  --theme-display-border: #3A1A6A;
+  --theme-display-text: #00FFCC;
+  --theme-scrollbar-track: #E8DEFF;
+  --theme-scrollbar-thumb: #B8A8E0;
+  --theme-scrollbar-hover: #6600FF;
+  --theme-song-drag-border: #FF0099;
+  --theme-xy-pad-bg: #1A0A3A;
+  --theme-xy-pad-border: #3A1A6A;
+  --theme-xy-pad-active-border: #5A3A8A;
+  --theme-xy-pad-glow: rgba(255, 0, 153, 0.3);
+  --theme-body-bg: #E8DEFF;
+  --theme-text-primary: #1A0A3A;
+  --theme-text-muted: #7050BB;
+  --theme-text-accent: #6600FF;
+  --theme-glow-primary: 0 0 20px rgba(102, 0, 255, 0.35);
+  --theme-glow-accent: 0 0 20px rgba(255, 0, 153, 0.4);
+  --theme-selector-active-bg: rgba(102, 0, 255, 0.15);
+  --theme-selector-active-border: rgba(102, 0, 255, 0.5);
+  --theme-selector-active-text: #6600FF;
+  --theme-selector-inactive-bg: transparent;
+  --theme-selector-inactive-text: #7050BB;
+  --theme-selector-inactive-hover-bg: rgba(102, 0, 255, 0.08);
+}
+
+/* ============================================
+   DEFAULT THEME (vintage) custom properties
+   ============================================ */
+:root, .theme-default {
+  --theme-panel-bg-start: #2C1E14;
+  --theme-panel-bg-end: #1A1410;
+  --theme-panel-border: #4A3728;
+  --theme-panel-inset: rgba(212, 165, 116, 0.1);
+  --theme-panel-shadow: rgba(0, 0, 0, 0.4);
+  --theme-button-bg-start: #3D2B1F;
+  --theme-button-bg-end: #2C1E14;
+  --theme-button-border: #4A3728;
+  --theme-button-inset: rgba(212, 165, 116, 0.1);
+  --theme-knob-highlight: #555;
+  --theme-knob-shadow: #222;
+  --theme-knob-border: #333;
+  --theme-led-off: #333;
+  --theme-led-active: #E8732A;
+  --theme-led-active-glow: rgba(232, 115, 42, 0.4);
+  --theme-led-green: #27AE60;
+  --theme-led-green-glow: rgba(39, 174, 96, 0.4);
+  --theme-pad-active: #E8732A;
+  --theme-pad-active-glow: rgba(232, 115, 42, 0.6);
+  --theme-step-highlight: rgba(212, 165, 116, 0.5);
+  --theme-step-highlight-border: #D4A574;
+  --theme-beat-marker: rgba(212, 165, 116, 0.15);
+  --theme-label-color: #A08060;
+  --theme-display-bg: #0A0A0A;
+  --theme-display-border: #333;
+  --theme-display-text: #E8732A;
+  --theme-scrollbar-track: #1A1410;
+  --theme-scrollbar-thumb: #4A3728;
+  --theme-scrollbar-hover: #D4A574;
+  --theme-song-drag-border: #E8732A;
+  --theme-xy-pad-bg: #0A0A0A;
+  --theme-xy-pad-border: #333;
+  --theme-xy-pad-active-border: #6B5040;
+  --theme-xy-pad-glow: rgba(232, 115, 42, 0.15);
+  --theme-body-bg: #1A1410;
+  --theme-text-primary: #F5E6D3;
+  --theme-text-muted: #A08060;
+  --theme-text-accent: #E8732A;
+  --theme-glow-primary: 0 0 12px rgba(212, 165, 116, 0.3);
+  --theme-glow-accent: 0 0 12px rgba(232, 115, 42, 0.3);
+  --theme-selector-active-bg: rgba(232, 115, 42, 0.15);
+  --theme-selector-active-border: rgba(232, 115, 42, 0.4);
+  --theme-selector-active-text: #E8732A;
+  --theme-selector-inactive-bg: transparent;
+  --theme-selector-inactive-text: #A08060;
+  --theme-selector-inactive-hover-bg: rgba(212, 165, 116, 0.08);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+/* Theme-aware drum machine textures */
+.vintage-panel {
+  background: linear-gradient(145deg, var(--theme-panel-bg-start) 0%, var(--theme-panel-bg-end) 100%);
+  border: 2px solid var(--theme-panel-border);
+  box-shadow: inset 0 1px 0 var(--theme-panel-inset),
+              0 4px 16px var(--theme-panel-shadow);
+}
+
+.vintage-button {
+  background: linear-gradient(180deg, var(--theme-button-bg-start) 0%, var(--theme-button-bg-end) 100%);
+  border: 1px solid var(--theme-button-border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3),
+              inset 0 1px 0 var(--theme-button-inset);
+  transition: all 0.1s ease;
+}
+
+.vintage-button:active {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  transform: translateY(1px);
+}
+
+.vintage-knob {
+  background: radial-gradient(circle at 35% 35%, var(--theme-knob-highlight), var(--theme-knob-shadow));
+  border: 2px solid var(--theme-knob-border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.vintage-led {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--theme-led-off);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.vintage-led.active {
+  background: var(--theme-led-active);
+  box-shadow: 0 0 8px var(--theme-led-active), 0 0 16px var(--theme-led-active-glow);
+}
+
+.vintage-led.green {
+  background: var(--theme-led-green);
+  box-shadow: 0 0 8px var(--theme-led-green), 0 0 16px var(--theme-led-green-glow);
+}
+
+.pad-active {
+  background: var(--theme-pad-active) !important;
+  box-shadow: 0 0 12px var(--theme-pad-active-glow),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.pad-current-step {
+  box-shadow: 0 0 8px var(--theme-step-highlight);
+  border-color: var(--theme-step-highlight-border) !important;
+}
+
+/* Step sequencer beat markers */
+.beat-marker {
+  background: var(--theme-beat-marker);
+}
+
+/* Theme-aware text styling */
+.vintage-label {
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.65rem;
+  color: var(--theme-label-color);
+}
+
+.vintage-display {
+  background: var(--theme-display-bg);
+  border: 2px solid var(--theme-display-border);
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  color: var(--theme-display-text);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Theme selector button states */
+.theme-selector-active {
+  background: var(--theme-selector-active-bg);
+  border: 1px solid var(--theme-selector-active-border);
+  color: var(--theme-selector-active-text);
+  box-shadow: var(--theme-glow-accent);
+}
+
+.theme-selector-inactive {
+  background: var(--theme-selector-inactive-bg);
+  border: 1px solid transparent;
+  color: var(--theme-selector-inactive-text);
+}
+
+.theme-selector-inactive:hover {
+  background: var(--theme-selector-inactive-hover-bg);
+  border-color: var(--theme-panel-border);
+}
+
+/* Utility classes for theme-aware colors */
+.theme-muted-text {
+  color: var(--theme-text-muted);
+}
+
+.theme-accent-text {
+  color: var(--theme-text-accent);
+}
+
+.theme-body-bg {
+  background-color: var(--theme-body-bg);
+}
+
+/* Playhead animation */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 0.5s ease-in-out infinite;
+}
+
+/* Tour styles */
+@keyframes tour-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 3px var(--theme-step-highlight), 0 0 0 6px var(--theme-beat-marker);
+  }
+  50% {
+    box-shadow: 0 0 0 4px var(--theme-step-highlight), 0 0 0 8px var(--theme-beat-marker);
+  }
+}
+
+.tour-spotlight {
+  animation: tour-pulse 2s ease-in-out infinite;
+  border: 3px solid var(--theme-step-highlight);
+  border-radius: 8px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--theme-scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--theme-scrollbar-thumb);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-scrollbar-hover);
+}
+
+/* Song mode styles */
+.song-block {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.song-block:hover {
+  transform: translateX(2px);
+}
+
+.song-block-drag-over {
+  border-top: 2px solid var(--theme-song-drag-border) !important;
+}
+
+.song-timeline-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.song-timeline-scroll::-webkit-scrollbar-track {
+  background: var(--theme-scrollbar-track);
+  border-radius: 2px;
+}
+.song-timeline-scroll::-webkit-scrollbar-thumb {
+  background: var(--theme-scrollbar-thumb);
+  border-radius: 2px;
+}
+
+@keyframes song-block-pulse {
+  0%, 100% { box-shadow: 0 0 8px var(--theme-pad-active-glow); }
+  50% { box-shadow: 0 0 16px var(--theme-pad-active-glow); }
+}
+
+.song-block-active {
+  animation: song-block-pulse 1s ease-in-out infinite;
+}
+
+/* Dancing Character beat flash */
+@keyframes beatFlash {
+  0% { opacity: 1; transform: scale(1.6); }
+  100% { opacity: 0.4; transform: scale(1); }
+}
+
+/* XY Kaoss Pad styles */
+.xy-pad-surface {
+  background: var(--theme-xy-pad-bg);
+  border: 2px solid var(--theme-xy-pad-border);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6),
+              inset 0 -1px 0 var(--theme-panel-inset);
+}
+
+.xy-pad-surface:not(.opacity-40):hover {
+  border-color: var(--theme-panel-border);
+}
+
+.xy-pad-active {
+  border-color: var(--theme-xy-pad-active-border) !important;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6),
+              0 0 12px var(--theme-xy-pad-glow);
+}
+
+/* Dark neon specific glow effects - Enhanced for vibrant look */
+.theme-dark-neon .vintage-panel {
+  box-shadow: inset 0 1px 0 var(--theme-panel-inset),
+              0 4px 16px var(--theme-panel-shadow),
+              0 0 2px rgba(0, 255, 255, 0.2),
+              0 0 1px rgba(255, 0, 153, 0.1);
+}
+
+.theme-dark-neon .vintage-led.active {
+  box-shadow: 0 0 8px var(--theme-led-active),
+              0 0 16px var(--theme-led-active-glow),
+              0 0 32px rgba(255, 0, 153, 0.4),
+              0 0 60px rgba(255, 0, 153, 0.2);
+}
+
+.theme-dark-neon .vintage-led.green {
+  box-shadow: 0 0 8px var(--theme-led-green),
+              0 0 16px var(--theme-led-green-glow),
+              0 0 32px rgba(0, 255, 153, 0.4),
+              0 0 60px rgba(0, 255, 153, 0.2);
+}
+
+.theme-dark-neon .pad-active {
+  box-shadow: 0 0 12px var(--theme-pad-active-glow),
+              0 0 24px rgba(255, 0, 153, 0.4),
+              0 0 48px rgba(255, 0, 153, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Light neon specific styling - Enhanced for vibrant look */
+.theme-light-neon .vintage-panel {
+  box-shadow: 0 2px 12px var(--theme-panel-shadow),
+              0 0 1px rgba(102, 0, 255, 0.2),
+              0 0 1px rgba(255, 0, 153, 0.15),
+              inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.theme-light-neon .vintage-button {
+  box-shadow: 0 1px 3px rgba(102, 0, 255, 0.15),
+              0 0 1px rgba(255, 0, 153, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.theme-light-neon .pad-active {
+  box-shadow: 0 0 10px var(--theme-pad-active-glow),
+              0 0 20px rgba(255, 0, 153, 0.3),
+              0 0 40px rgba(255, 0, 153, 0.15),
+              inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.theme-light-neon .vintage-led.active {
+  box-shadow: 0 0 8px var(--theme-led-active),
+              0 0 16px var(--theme-led-active-glow),
+              0 0 32px rgba(255, 0, 153, 0.3);
+}
+
+.theme-light-neon .vintage-led.green {
+  box-shadow: 0 0 8px var(--theme-led-green),
+              0 0 16px var(--theme-led-green-glow),
+              0 0 32px rgba(0, 255, 153, 0.3);
+}

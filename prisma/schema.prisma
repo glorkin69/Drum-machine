@@ -1,0 +1,227 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  isAdmin   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  savedPatterns      SavedPattern[]
+  savedSongs         SavedSong[]
+  sessions           UserSession[]
+  styleProfile       StyleProfile?
+  patternFeedback    PatternFeedback[]
+  hostedSessions     CollabSession[]    @relation("hostedSessions")
+  collabParticipants CollabParticipant[]
+}
+
+model UserSession {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessionToken  String   @unique // Maps to the JWT jti claim
+  userAgent     String?
+  ipAddress     String?
+  lastActiveAt  DateTime @default(now())
+  expiresAt     DateTime
+  isRevoked     Boolean  @default(false)
+  revokedAt     DateTime?
+  createdAt     DateTime @default(now())
+
+  @@index([userId])
+  @@index([sessionToken])
+  @@index([expiresAt])
+  @@index([lastActiveAt])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([email])
+  @@index([token])
+}
+
+model SavedPattern {
+  id        String   @id @default(cuid())
+  name      String
+  genre     String
+  songPart  String
+  emotion   String?  // Optional emotion/mood tag (happy, sad, aggressive, calm, anxious, romantic)
+  bpm       Int      @default(120)
+  pattern   Json     // The full pattern grid data
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model SavedSong {
+  id        String   @id @default(cuid())
+  name      String
+  blocks    Json     // Array of SongBlock objects
+  loop      Boolean  @default(false)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model PageView {
+  id        String   @id @default(cuid())
+  path      String
+  country   String?
+  userAgent String?
+  userId    String?
+  sessionId String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([path])
+  @@index([sessionId])
+  @@index([userId])
+}
+
+model StyleProfile {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dna           Json     // StyleFingerprint data (genre preferences, instrument weights, etc.)
+  feedbackCount Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model PatternFeedback {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  patternHash String   // Hash of the pattern for deduplication
+  genre       String
+  songPart    String
+  artistDna   String?  // Which artist DNA was active, if any
+  liked       Boolean  // true = thumbs up, false = thumbs down
+  patternData Json     // The actual pattern that was rated
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+  @@index([patternHash])
+}
+
+// ============================================================================
+// REAL-TIME COLLABORATION MODELS
+// ============================================================================
+
+model CollabSession {
+  id           String   @id @default(cuid())
+  name         String
+  hostId       String
+  host         User     @relation("hostedSessions", fields: [hostId], references: [id], onDelete: Cascade)
+  genre        String   @default("rock")
+  songPart     String   @default("verse")
+  emotion      String?
+  bpm          Int      @default(120)
+  patternLength Int     @default(16)
+  visibility   String   @default("private") // private, public, friends
+  inviteCode   String   @unique
+  isActive     Boolean  @default(true)
+  patternData  Json?    // Current shared pattern state
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  participants CollabParticipant[]
+  recordings   CollabRecording[]
+
+  @@index([hostId])
+  @@index([inviteCode])
+  @@index([isActive])
+  @@index([visibility])
+}
+
+model CollabParticipant {
+  id                  String   @id @default(cuid())
+  sessionId           String
+  session             CollabSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  userId              String
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role                String   @default("collaborator") // host, collaborator, viewer
+  assignedInstruments Json?    // Array of instrument IDs
+  joinedAt            DateTime @default(now())
+  leftAt              DateTime?
+
+  @@unique([sessionId, userId])
+  @@index([sessionId])
+  @@index([userId])
+}
+
+model CollabRecording {
+  id          String   @id @default(cuid())
+  sessionId   String
+  session     CollabSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  name        String
+  duration    Int      @default(0) // Duration in milliseconds
+  events      Json     // Array of RecordingEvent objects
+  startBpm    Int
+  startGenre  String
+  startPart   String
+  startPattern Json    // Initial pattern state
+  participants Json    // Array of participant names
+  createdAt   DateTime @default(now())
+
+  @@index([sessionId])
+}
+
+// ============================================================================
+// SECURITY & AUDIT MODELS
+// ============================================================================
+
+model SecurityAuditLog {
+  id        String   @id @default(cuid())
+  type      String   // auth_failure, rate_limit, admin_action, suspicious_activity, account_lockout, password_change
+  severity  String   @default("info") // info, warning, critical
+  detail    String
+  ip        String?
+  userId    String?
+  metadata  Json?    // Additional context data
+  createdAt DateTime @default(now())
+
+  @@index([type])
+  @@index([userId])
+  @@index([createdAt])
+  @@index([severity])
+}
+
+model AccountLockout {
+  id            String   @id @default(cuid())
+  email         String
+  failedCount   Int      @default(0)
+  lastFailedAt  DateTime @default(now())
+  lockedUntil   DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([email])
+  @@index([email])
+  @@index([lockedUntil])
+}
